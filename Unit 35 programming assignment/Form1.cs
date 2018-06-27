@@ -33,17 +33,17 @@ namespace Unit_35_programming_assignment
             chart1.Series.Clear();
         }
 
-        private void calculateVelocity()
+        private void calculateVelocity()// the calculation to workout velocity
         {
-            for (int i=1; i < table.Count; i++)
+            for (int i = 1; i < table.Count; i++)
             {
-                double dQ  = table[i].altitude - table[i - 1].altitude;
+                double dQ = table[i].altitude - table[i - 1].altitude;
                 double dt = table[i].time - table[i - 1].time;
                 table[i].velocity = dQ / dt;
             }
         }
 
-        private void calculateAcceleration()
+        private void calculateAcceleration()// the calculation on how to workout acceleration
         {
             for (int i = 2; i < table.Count; i++)
             {
@@ -52,7 +52,7 @@ namespace Unit_35_programming_assignment
                 table[i].acceleration = dI / dt;
             }
         }
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)//this is to get the open file working on the menu strip, this allows the files to be opened.
         {
             openFileDialog1.FileName = "";
             openFileDialog1.Filter = "csv Files|*.csv";
@@ -99,7 +99,7 @@ namespace Unit_35_programming_assignment
             }
         }
 
-        private void velocityToolStripMenuItem_Click(object sender, EventArgs e)
+        private void velocityToolStripMenuItem_Click(object sender, EventArgs e)// this code works out the velocity and displays it as a graph
         {
             chart1.Series.Clear();
             chart1.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -113,7 +113,7 @@ namespace Unit_35_programming_assignment
                 BorderWidth = 2
             };
             chart1.Series.Add(series);
-            foreach(row r in table.Skip(1))
+            foreach (row r in table.Skip(1))
             {
                 series.Points.AddXY(r.time, r.velocity);
             }
@@ -122,7 +122,7 @@ namespace Unit_35_programming_assignment
             chart1.ChartAreas[0].RecalculateAxesScale();
         }
 
-        private void altitudeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void altitudeToolStripMenuItem_Click(object sender, EventArgs e)// this works out the altidude and displays it in a graph
         {
             {
                 chart1.Series.Clear();
@@ -147,7 +147,8 @@ namespace Unit_35_programming_assignment
             }
         }
 
-        private void rateOfChangeOfVelocityToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rateOfChangeOfVelocityToolStripMenuItem_Click(object sender, EventArgs e) // This calculates the Rate of chnage of Velocity and displays it in a graph.
+
         {
             {
                 chart1.Series.Clear();
@@ -172,7 +173,7 @@ namespace Unit_35_programming_assignment
             }
         }
 
-        private void saveCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveCSVToolStripMenuItem_Click(object sender, EventArgs e)// this is how to save the CSV files
         {
             saveFileDialog1.FileName = "";
             saveFileDialog1.Filter = "csv Files|*.csv";
@@ -183,8 +184,8 @@ namespace Unit_35_programming_assignment
                 {
                     using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
                     {
-                        sw.WriteLine("Time /s, Altitude /m, Velocity /m/s, Rate of chnage of Velocity m/s");
-                        foreach(row r in table)
+                        sw.WriteLine("Time /s, Altitude /m, Velocity /m/s, Rate of change of Velocity m/s");
+                        foreach (row r in table)
                         {
                             sw.WriteLine(r.time + "," + r.altitude + "," + "," + r.velocity + "," + r.acceleration);
                         }
@@ -197,17 +198,17 @@ namespace Unit_35_programming_assignment
             }
         }
 
-        private void savePNGToolStripMenuItem_Click(object sender, EventArgs e)
+        private void savePNGToolStripMenuItem_Click(object sender, EventArgs e)// this is the code on how to save png files
         {
             {
                 saveFileDialog1.FileName = "";
-                saveFileDialog1.Filter = "csv Files|*.csv";
+                saveFileDialog1.Filter = "png Files|*.png";
                 DialogResult results = saveFileDialog1.ShowDialog();
                 if (results == DialogResult.OK)
                 {
                     try
                     {
-
+                        chart1.SaveImage(saveFileDialog1.FileName, ChartImageFormat.Png);
                     }
                     catch
                     {
@@ -215,5 +216,8 @@ namespace Unit_35_programming_assignment
                     }
                 }
             }
+        }
     }
 }
+            
+
